@@ -1,14 +1,14 @@
 public class Util 
 {
 	/** creates a shallow copy of the given matrix
-	 *  @param board 2d array to be copied
+	 *  @param matrix 2d array to be copied
 	 *  @return shallow copy of given matrix */
-	public static int[][] shallowCopyOf(int[][] board) {
-		int[][] newBoard = new int[3][3];
-		for (int r = 0; r < board.length; r++)
-			for (int c = 0; c < board[r].length; c++)
-				newBoard[r][c] = board[r][c];
-		return newBoard;
+	public static char[][] shallowCopyOf(char[][] matrix) {
+		char[][] newState = new char[3][3];
+		for (int r = 0; r < matrix.length; r++)
+			for (int c = 0; c < matrix[r].length; c++)
+				newState[r][c] = matrix[r][c];
+		return newState;
 	}
 
 	
@@ -22,19 +22,14 @@ public class Util
 	}
 
 
-	/** prints the given game state
-	 *  @param state game state within the Tic-Tac-Toa game tree */
-	public static void printGameState(State state) {
+	/** prints the given matrix
+	 *  @param matrix 2d array to be printed */
+	public static void printBoard(State state) {
 		for (int r = 0; r < state.board.length; r++) {
-			for (int c = 0; c < state.board[r].length; c++) {
-				char ply = '_';
-				if (state.board[r][c] != TicTacToe.EMP)
-					ply = state.board[r][c] == TicTacToe.X ? 'X' : 'O';
-				System.out.print(ply +" ");
-			}
+			for (int c = 0; c < state.board[r].length; c++)
+				System.out.print(state.board[r][c] +" ");
 			System.out.println();
 		}
-		
 		System.out.println("current ply is \'"+ ((state.isPlyX) ? 'X' : 'O') +"\', "
 				+ "at position ("+ state.currPlyPos.row +", "+ state.currPlyPos.col +")");
 		System.out.println("Total Heuristic = "+ state.heuristic +"\n");

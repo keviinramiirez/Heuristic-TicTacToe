@@ -1,5 +1,4 @@
 import java.util.ArrayDeque;
-import java.util.LinkedList;
 import java.util.Queue;
 
 /** 
@@ -12,24 +11,17 @@ import java.util.Queue;
  */
 public class TicTacToe
 {	
-	/** values of each ply */
-	static int O = -1, EMP = 0, X = 1;
-	
 	/** the broad game to begin solving the puzzle */
-	int[][] board = new int[3][3];
+	char[][] board = new char[3][3];
 
 	/** queue that keeps track of all states (frontier) */
 	Queue<State> qTrack = new ArrayDeque<State>();
 
-	/** shall contain the path from initial ___ to goal ___. */
-	LinkedList<State> path = new LinkedList<>();
-	
-
-	/** initializes the game board with an X in the given position */
+	/** Initializes the game board with an X in the given position */
 	public TicTacToe(Pos pos) {
 		for (int r = 0; r < 3; r++)
 			for (int c = 0; c < 3; c++)
-				board[r][c] = EMP;
+				board[r][c] = '_';
 
 		State initState = new State(board, pos);
 		this.qTrack.add(initState);
@@ -40,11 +32,11 @@ public class TicTacToe
 	public void startEvaluating() {
 		System.out.println("initial position of \'"+ ((qTrack.peek().isPlyX) ? 'X' : 'O') +"\' = ("
 				+ qTrack.peek().currPlyPos.row +", "+ qTrack.peek().currPlyPos.col +")");
-		Util.printGameState(qTrack.peek());
+		Util.printBoard(qTrack.peek());
 		
 		while (!qTrack.isEmpty()) {
 			State currState = qTrack.peek();
-			if (currState.isSolved(TicTacToe.X) || currState.isSolved(TicTacToe.O))
+			if (currState.isSolved('X') || currState.isSolved('O'))
 				return;
 			
 			currState.evaluateChildStates();
