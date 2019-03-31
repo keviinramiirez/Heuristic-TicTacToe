@@ -27,19 +27,19 @@ public class TicTacToe
 	
 	
 	public void startEvaluating() {
+		System.out.println("initial position of \'"+ ((qTrack.peek().isPlyX) ? 'X' : 'O') +"\' = ("
+				+ qTrack.peek().currPlyPos.row +", "+ qTrack.peek().currPlyPos.col +")");
 		Util.printBoard(qTrack.peek());
+		
 		while (!qTrack.isEmpty()) {
 			State currState = qTrack.peek();
-			if (currState.isSolved('X') || currState.isSolved('O')) {
+			if (currState.isSolved('X') || currState.isSolved('O'))
 				return;
-			}
-			
 			
 			currState.evaluateChildStates();
 			
-			for (State puzzleState : currState.childStates) {
+			for (State puzzleState : currState.childStates)
 				qTrack.add(puzzleState);
-			}
 			
 			// dequeue the first state for it to not be evaluated again
 			qTrack.poll();
@@ -47,14 +47,15 @@ public class TicTacToe
 	}
 	
 	
-	public static void main(String[] args) {
-		TicTacToe game = new TicTacToe(new Pos(1, 1));
-		
+	public static void main(String[] args) {		
 		System.out.println("Let User's ply be 'X' and opponent's ply to be 'O'");
 		System.out.println("\nThis is a console printed observation of each game state and their heuristic value.");
 		System.out.println("*Note: the algorithm only considers states that lead to the victory");
 		System.out.println("       of the user, but we're printing every state leading to the user's");
-		System.out.println("       victory board for the purpose of observing each heuristic value.");
+		System.out.println("       victory board for the purpose of observing EACH heuristic value.");
+
+		Pos initPos = new Pos(1, 0);
+		TicTacToe game = new TicTacToe(initPos);
 
 		System.out.println();
 		game.startEvaluating();

@@ -126,23 +126,13 @@ public class State
 	}
 	
 	
-	private boolean compareCurrAndPrevHeuristic(State state, int prevHeur) {
+	/** true if given state's heuristic value is less than or greater than 
+	 *  (depending on whether the state's ply is 'X' or 'O') the given heuristic 
+	 *  value. False otherwise.
+	 */
+	private boolean compareCurrAndPrevHeuristic(State state, int heuristic) {
 		return state.isPlyX
-				? state.heuristic > prevHeur
-				: state.heuristic < prevHeur;
+				? state.heuristic > heuristic
+				: state.heuristic < heuristic;
 	}
-	
-	
-//	public static void main(String[] args) {
-//		char[][] board = {
-//				{'_', '_', '_'},
-//				{'_', 'X', '_'},
-//				{'_', 'O', '_'}
-//		};
-//		State state = new State(board, new Pos(0, 0), 'X', 5);
-//		
-//		state.evaluateHeuristic();
-//		
-//		System.out.println(state.heuristic);
-//	}
 }
